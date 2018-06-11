@@ -3,7 +3,7 @@ const Schema = mongoose.Schema
 
 // describe the properties of a schema
 const userSchema = new Schema({
-	googleId: String
+	googleId: String,
 })
 
 mongoose.model('users', userSchema)
