@@ -8,7 +8,6 @@ module.exports = (app) => {
 		})
 	)
 
-	// handle this incoming request
 	app.get(
 		'/auth/google/callback', 
 		passport.authenticate('google'),
