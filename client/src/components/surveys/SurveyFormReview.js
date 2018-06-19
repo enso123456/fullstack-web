@@ -6,13 +6,11 @@ import formFields from './formFields';
 import * as actions from '../../actions/';
 
 const SurveyFormReview = ({ onCancel, formValues, submitSurvey, history }) => {
-	const reviewfields = _.map(formFields, ({ label, name }) => {
+	const reviewfields = _.map(formFields, ({ name, label }) => {
 		return (
 			<div key={name}>
 				<label>{label}</label>
-				<div>
-					{formValues[name]}
-				</div>
+				{formValues[name]}
 			</div>
 		)
 	});
@@ -40,7 +38,7 @@ const SurveyFormReview = ({ onCancel, formValues, submitSurvey, history }) => {
 
 function mapStateToProps(state) {
 	return {
-		formValues: state.form.formValues.value
+		formValues: state.form.surveyForm.values
 	}
 }
 
