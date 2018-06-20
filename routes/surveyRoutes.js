@@ -11,13 +11,23 @@ const Survey = mongoose.model('surveys');
 
 module.exports = (app) => {
 
+	app.get('/api/surveys', requireLogin, async (req, res) => {
+		// find user survey don't include recipients fields
+		const surveys	= await Survey.find({ _user: req.user.id })
+														.select({ recipients: false });
+
+		res.send(surveys);
+	});
+
 	app.get('/api/surveys/:surveyId/:choice', (req, res) => {
 		res.send('Thanks for voting');
 	});
 
+	//redirect from sendgrid
 	app.post('/api/surveys/webhooks', (req, res) => {
 		const p = new Path('/api/surveys/:surveyId/:choice');
 
+		//filter out the survey response from the user
 		_.chain(req.body)
 			.map(({ url, email }) => {
 				const match = p.test(new URL(url).pathname);
